@@ -2,6 +2,7 @@ const mongoose = require('mongoose');
 const express = require('express');
 const router = express.Router();
 const EmployeeModel = require('./EmployeeModel');
+const { update } = require('lodash');
 
 //connect database
 const uri = "mongodb://localhost:27017/EmployeeDB"
@@ -121,5 +122,15 @@ router.post('/delete', async (req, res) => {
         });
     }
 });
+
+router.post('/update', async (req, res) => {
+    try{
+        const { _id, ...updateData } = req.body;
+        if (!_id) {
+            return res.status(400).json({message: "Missing required field: _id"});
+        }
+        const updatedEmployee = await EmployeeModel.findByIdAndUpdate()
+    }
+})
 
 module.exports = router;    
